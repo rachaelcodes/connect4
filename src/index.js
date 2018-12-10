@@ -18,6 +18,7 @@ class Column extends React.Component {
     return (
       <div className="column">
         <button className="column-btn" onClick={this.props.onClick}>Choose</button>
+        {/* refactor with iteration! */}
         <Cell value={this.props.values[0]} />
         <Cell value={this.props.values[1]} />
         <Cell value={this.props.values[2]} />
@@ -52,6 +53,7 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
+    // Can some of this be brought out into a new function?
     const cells = this.state.cells.slice();
 
     const column = cells[i].slice();
@@ -80,6 +82,7 @@ class Board extends React.Component {
       <div>
           { turnStatus }
         <div className="board">
+          {/* refactor with iteration! */}
           <Column values={this.state.cells[0]} onClick={() => this.handleClick(0)} />
           <Column values={this.state.cells[1]} onClick={() => this.handleClick(1)} />
           <Column values={this.state.cells[2]} onClick={() => this.handleClick(2)} />
