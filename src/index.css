@@ -8,3 +8,13 @@
   border-radius: 50%;
   margin: .2rem;
 }
+
+.cell-red {
+  background-color: #FF0257;
+}
+
+.cell-yellow {
+  background-color: #FFEA02;
+}
+
+/* 008DB2 16A6CC FF0257 FFEA02 B20A43 */
