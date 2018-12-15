@@ -8,7 +8,7 @@ export default function Column (props) {
 
   return (
     <div className="column">
-      <button className="column-btn" onClick={ props.onClick }>Choose</button>
+      <button className={"column-btn column-btn-" + props.player} onClick={ props.onClick }></button>
       { cells }
     </div>
   )

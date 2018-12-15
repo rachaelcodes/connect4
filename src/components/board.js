@@ -1,5 +1,6 @@
 import React from 'react';
 import Column from './column';
+import Status from './status';
 
 export default class Board extends React.Component {
   constructor(props) {
@@ -15,7 +16,8 @@ export default class Board extends React.Component {
         Array(6).fill(null),
       ],
       isRedTurn: true,
-      winner: null
+      winner: null,
+      boardFull: false
     }
   }
 
@@ -106,7 +108,7 @@ export default class Board extends React.Component {
   }
 
   columnCanBePlayed(index) {
-    return !this.state.winner && this.spacesInColumn(index)
+    return this.spacesInColumn(index)
   }
 
   player() {
@@ -137,9 +139,27 @@ export default class Board extends React.Component {
     }
   }
 
+  checkBoardSpaces(columns) {
+
+    const boardHasSpaces = columns.some( 
+      column => column.some(
+        cell => cell == null
+        )
+      )
+    if (!boardHasSpaces) {
+      this.setState({
+        boardFull: true
+      })
+    }
+  }
+
+  gameOver() {
+    return this.state.winner != null || this.state.boardFull
+  }
+
   handleClick(index) {   
     
-    if(this.columnCanBePlayed(index)) {
+    if(!this.gameOver() && this.columnCanBePlayed(index)) {
       const cells = this.state.cells.slice();
       const column = cells[index].slice();
 
@@ -151,27 +171,26 @@ export default class Board extends React.Component {
         cells: cells
       })
 
-      this.checkIfWinner(cells)      
+      this.checkIfWinner(cells)   
+      this.checkBoardSpaces(cells)   
     }
   } 
 
   render() {
     const winner = this.state.winner
-    const player = this.state.isRedTurn ? 'Red' : 'Yellow'
-    const turnStatus = winner 
-      ? 'Winner: ' + winner
-      : player + "'s turn"
+    const player = this.player()
+    const over = this.gameOver() ? 'game-over' : null
 
     const columns = this.state.cells.map((values, index)=>
-      <Column values={ values } column={ index } onClick={() => this.handleClick(index)} key={ 'column' + index }/>
+      <Column values={ values } column={ index } player={ player } onClick={() => this.handleClick(index)} key={ 'column' + index }/>
     );
 
     return (
-      <div>
-          { turnStatus }
+      <div className={ "game-board "+ over }>
         <div className="board">
           { columns }
         </div>
+        <Status player={ player } over={ over } winner={ winner }></Status>
       </div>
     )
   }

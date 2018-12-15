@@ -1,20 +1,107 @@
+@keyframes rotate {
+  0% { transform: skewY(3deg) rotate(0); }
+  100% { transform: skewY(3deg) rotate(360deg); }
+}
+
+@keyframes red {
+  0% { color: #000000; }
+  50% { color: #FF0257; }
+  100% { color: #000000; }
+}
+
+@keyframes yellow {
+  0% { color: #000000; }
+  50% { color: #FFEA02; }
+  100% { color: #000000; }
+}
+
+.game-board {
+  padding: 1rem;
+  transform: skewY(3deg);
+  width: fit-content; 
+}
+
+.game-over {
+  animation: rotate 2s ease-in;
+}
+
 .board {
   display: flex;
+  background-color: #008DB2;
+  background: linear-gradient(135deg, rgb(4, 191, 228) 0%, rgba(2,138,172,1) 100%);
+  padding: 0.5rem;
+  margin-top: 3.5rem;
+  border-radius: 2rem;
+  box-shadow: .6rem .5rem .1rem #007693, .7rem .6rem .2rem .1rem rgba(0,0,0,0.1);
 }
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.column-btn {
+  width: 2rem;
+  height: 2rem;
+  margin-top: -2rem;
+  border-radius: 50%;
+  transform: translate(0, -1rem);
+}
+.column-btn-red {
+  border: 1px dashed #FF0257;
+}
+
+.column-btn-red:hover {
+  border-color: white;
+  background-color: #FF0257;
+}
+
+.column-btn-yellow {
+  border: 1px dashed #FFEA02;
+}
+
+.column-btn-yellow:hover {
+  border-color: white;
+  background-color: #FFEA02;
+}
+
 .cell {
   width: 2rem;
   height: 2rem;
-  border: 1px lightslategray solid;
+  border: 1px solid rgba(0,0,0,0.2);
   border-radius: 50%;
-  margin: .2rem;
+  margin: .4rem;
+  background-color: #FFFFFF;
+  box-shadow: inset .2rem .1rem .2rem .1rem rgba(0,0,0,0.1);
+
 }
 
 .cell-red {
   background-color: #FF0257;
+  box-shadow: 
+    inset .2rem .1rem .2rem .1rem rgba(0,0,0,0.1), inset -.3rem -.3rem .2rem #FF0257, 
+    inset .8rem .8rem .2rem #FF0257,
+    inset -.3rem -.3rem .2rem .1rem rgba(0,0,0,0.1);
 }
 
 .cell-yellow {
   background-color: #FFEA02;
+  box-shadow: 
+    inset .2rem .1rem .2rem .1rem rgba(0,0,0,0.1), inset -.3rem -.3rem .2rem #FFEA02, 
+    inset .8rem .8rem .2rem #FFEA02,
+    inset -.3rem -.3rem .2rem .1rem rgba(0,0,0,0.1);
 }
 
-/* 008DB2 16A6CC FF0257 FFEA02 B20A43 */
+.status {
+  font-family: 'Fredoka One', cursive;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.win-red {
+  animation: red 1s ease-in 4;
+}
+
+.win-yellow {
+  animation: yellow 1s ease-in 4;
+}
